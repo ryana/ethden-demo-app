@@ -1,138 +1,148 @@
 <!-- Page Content -->
 <div class="container">
 
-    <div class="row">
+  <div class="row">
 
-        <div class="col-md-3">
-            <p class="lead">Shop Name</p>
-            <div class="list-group">
-                <a href="#" class="list-group-item active">Category 1</a>
-                <a href="#" class="list-group-item">Category 2</a>
-                <a href="#" class="list-group-item">Category 3</a>
-            </div>
+    <div class="col-md-3">
+      <p class="lead">Bufficorns'R'Us</p>
+      <div class="list-group">
+        <a href="#" class="list-group-item active">Bufficorns</a>
+        <a href="#" class="list-group-item">Cornibuffs</a>
+        <a href="#" class="list-group-item">Narwhals</a>
+      </div>
+    </div>
+
+    <div class="col-md-9">
+
+      <div class="thumbnail">
+        <%= image_tag 'bufficorn.jpg', class: 'img-responsive' %>
+        <div class="caption-full">
+          <h4 class="pull-right">0.05Ξ (~<%= convert_eth_to_usd(0.05) %>)</h4>
+          <h4><a href="#">Bufficorn Poster</a>
+          </h4>
+          <p>
+          What to get a poster of the bufficornest little Bufficorn in the whole
+          wide world? Well look look further. This poster can be yours for the
+          low low price of 0.05Ξ.
+          </p>
+
+          <p>
+          We only accept crypto, but we've partnered with QuickETH to provide
+          a quick way for you to pay with a credit card!
+          </p>
+
+          <%= form_tag QE[:payment_url], method: :post do %>
+            <p class="text-right">
+            <%= hidden_field_tag :amount, 0.05 %>
+            <%= hidden_field_tag :redirect_url, confirm_url(txid: SecureRandom.uuid) %>
+            <%= hidden_field_tag :api_key, QE[:api_key] %>
+            <%= hidden_field_tag :address, QE[:address] %>
+            <%= hidden_field_tag :product_name, "Bufficorn Poster" %>
+            <%= hidden_field_tag :store_name, "Bufficorns'R'Us" %>
+            <%= hidden_field_tag :timestamp, ts = Time.now.to_i %>
+            <%= hidden_field_tag :signature, Digest::SHA256.hexdigest([QE[:api_key],QE[:api_secret],QE[:address],0.05,ts].map(&:to_s).join) %>
+            <%= submit_tag "Buy for 0.05Ξ w/ Credit Card",
+              data: {disable_with: 'One moment...'},
+              class: 'btn btn-success' %>
+          </p>
+        <% end %>
+        </div>
+        <div class="ratings">
+          <p class="pull-right">3 reviews</p>
+          <p>
+          <span class="glyphicon glyphicon-star"></span>
+          <span class="glyphicon glyphicon-star"></span>
+          <span class="glyphicon glyphicon-star"></span>
+          <span class="glyphicon glyphicon-star"></span>
+          <span class="glyphicon glyphicon-star-empty"></span>
+          4.0 stars
+          </p>
+        </div>
+      </div>
+
+      <div class="well">
+
+        <div class="text-right">
+          <a class="btn btn-success">Leave a Review</a>
         </div>
 
-        <div class="col-md-9">
+        <hr>
 
-            <div class="thumbnail">
-                <img class="img-responsive" src="http://placehold.it/800x300" alt="">
-                <div class="caption-full">
-                  <h4 class="pull-right">0.05Ξ (~<%= convert_eth_to_usd(0.05) %>)</h4>
-                    <h4><a href="#">Product Name</a>
-                    </h4>
-                    <p>See more snippets like these online store reviews at <a target="_blank" href="http://bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
-                    <p>Want to make these reviews work? Check out
-                        <strong><a href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">this building a review system tutorial</a>
-                        </strong>over at maxoffsky.com!</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit, sed do eiusmod tempor incididunt ut labore et
-                        dolore magna aliqua. Ut enim ad minim veniam, quis
-                        nostrud exercitation ullamco laboris nisi ut aliquip ex
-                        ea commodo consequat. Duis aute irure dolor in
-                        reprehenderit in voluptate velit esse cillum dolore eu
-                        fugiat nulla pariatur. Excepteur sint occaecat
-                        cupidatat non proident, sunt in culpa qui officia
-                        deserunt mollit anim id est laborum</p>
-
-                        <%= form_tag QE[:payment_url], method: :post do %>
-                          <p class="text-right">
-                          <%= hidden_field_tag :amount, 0.05 %>
-                          <%= hidden_field_tag :redirect_url, confirm_url(txid: SecureRandom.uuid) %>
-                          <%= hidden_field_tag :api_key, QE[:api_key] %>
-                          <%= hidden_field_tag :address, QE[:address] %>
-                          <%= hidden_field_tag :timestamp, ts = Time.now.to_i %>
-                          <%= hidden_field_tag :signature, Digest::SHA256.hexdigest([QE[:api_key],QE[:api_secret],QE[:address],0.05,ts].map(&:to_s).join) %>
-                          <%= submit_tag "Buy for 0.05Ξ w/ Credit Card",
-                            data: {disable_with: 'One moment...'},
-                            class: 'btn btn-success' %>
-                          </p>
-                        <% end %>
-                </div>
-                <div class="ratings">
-                    <p class="pull-right">3 reviews</p>
-                    <p>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        4.0 stars
-                    </p>
-                </div>
-            </div>
-
-            <div class="well">
-
-                <div class="text-right">
-                    <a class="btn btn-success">Leave a Review</a>
-                </div>
-
-                <hr>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        Anonymous
-                        <span class="pull-right">10 days ago</span>
-                        <p>This product was great in terms of quality. I would definitely buy another!</p>
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        Anonymous
-                        <span class="pull-right">12 days ago</span>
-                        <p>I've alredy ordered another one!</p>
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        Anonymous
-                        <span class="pull-right">15 days ago</span>
-                        <p>I've seen some better than this, but not at this price. I definitely recommend this item.</p>
-                    </div>
-                </div>
-
-            </div>
-
+        <div class="row">
+          <div class="col-md-12">
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star-empty"></span>
+            Anonymous
+            <span class="pull-right">10 days ago</span>
+            <p>
+            This product was great in terms of quality.
+            I was worried there would be too much Buff- and not
+            enough -icorn, but they got it just right!
+            I would definitely buy another!</p>
+          </div>
         </div>
+
+        <hr>
+
+        <div class="row">
+          <div class="col-md-12">
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star-empty"></span>
+            Anonymous
+            <span class="pull-right">12 days ago</span>
+            <p>
+            I had a killer back ache for weeks. I bought a bufficorn
+            poster, and not only has my back pain gone away, but 
+            I've also started to lose excess pounds. Thanks 
+            Bufficorn!
+            </p>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+          <div class="col-md-12">
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star-empty"></span>
+            VITLIK BUTANE
+            <span class="pull-right">15 days ago</span>
+            <p>
+            IF YOU SEND 0.05 ETH TO THIS DRESS I WILL SEND YOU BACK
+            1 ETH I CAN GIVEN THIS FOR 1000 PEOPLE.
+            </p>
+          </div>
+        </div>
+
+      </div>
 
     </div>
+
+  </div>
 
 </div>
 <!-- /.container -->
 
 <div class="container">
 
-    <hr>
+  <hr>
 
-    <!-- Footer -->
-    <footer>
-        <div class="row">
-            <div class="col-lg-12">
-                <p>Copyright &copy; Your Website 2014</p>
-            </div>
-        </div>
-    </footer>
+  <!-- Footer -->
+  <footer>
+    <div class="row">
+      <div class="col-lg-12">
+      </div>
+    </div>
+  </footer>
 
 </div>
 <!-- /.container -->

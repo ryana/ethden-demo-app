@@ -9,10 +9,7 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <header>
-      <%= render 'layouts/navigation' %>
-    </header>
-    <main role="main">
+    <main role="main" style="margin: 0; padding-top: 25px">
        <%= render 'layouts/messages' %>
        <%= yield %>
     </main>
