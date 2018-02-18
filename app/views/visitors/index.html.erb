@@ -17,14 +17,36 @@
             <div class="thumbnail">
                 <img class="img-responsive" src="http://placehold.it/800x300" alt="">
                 <div class="caption-full">
-                    <h4 class="pull-right">$24.99</h4>
+                  <h4 class="pull-right">0.05Ξ (~<%= convert_eth_to_usd(0.05) %>)</h4>
                     <h4><a href="#">Product Name</a>
                     </h4>
                     <p>See more snippets like these online store reviews at <a target="_blank" href="http://bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
                     <p>Want to make these reviews work? Check out
                         <strong><a href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">this building a review system tutorial</a>
                         </strong>over at maxoffsky.com!</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit, sed do eiusmod tempor incididunt ut labore et
+                        dolore magna aliqua. Ut enim ad minim veniam, quis
+                        nostrud exercitation ullamco laboris nisi ut aliquip ex
+                        ea commodo consequat. Duis aute irure dolor in
+                        reprehenderit in voluptate velit esse cillum dolore eu
+                        fugiat nulla pariatur. Excepteur sint occaecat
+                        cupidatat non proident, sunt in culpa qui officia
+                        deserunt mollit anim id est laborum</p>
+
+                        <%= form_tag QE[:payment_url], method: :post do %>
+                          <p class="text-right">
+                          <%= hidden_field_tag :amount, 0.05 %>
+                          <%= hidden_field_tag :redirect_url, confirm_url(txid: SecureRandom.uuid) %>
+                          <%= hidden_field_tag :api_key, QE[:api_key] %>
+                          <%= hidden_field_tag :address, QE[:address] %>
+                          <%= hidden_field_tag :timestamp, ts = Time.now.to_i %>
+                          <%= hidden_field_tag :signature, Digest::SHA256.hexdigest([QE[:api_key],QE[:api_secret],QE[:address],0.05,ts].map(&:to_s).join) %>
+                          <%= submit_tag "Buy for 0.05Ξ w/ Credit Card",
+                            data: {disable_with: 'One moment...'},
+                            class: 'btn btn-success' %>
+                          </p>
+                        <% end %>
                 </div>
                 <div class="ratings">
                     <p class="pull-right">3 reviews</p>
